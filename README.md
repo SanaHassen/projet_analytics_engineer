@@ -29,8 +29,9 @@ L'objectif de notre projet est d'exploiter les données des dix dernières anné
 - Implémentation des bases de données.
 
 ### Construction du Pipeline ETL/ELT
-- Transfert des données depuis les bases transitoires vers le data warehouse, ici Snowflake.
+- Transfert des données depuis les bases transitoires vers le datalake, ici Snowflake.
 - Mise en place du pipeline de transformation des données (filtrage, agrégation, renommage des colonnes) dans Snowflake.
+- chargement des résultats après transformation dans le datawarehouse, ici Snowflake.
 
 ### Création du Tableau de Bord Analytique
 - Utilisation de Power BI pour se connecter à Snowflake et générer des rapports analytiques.
