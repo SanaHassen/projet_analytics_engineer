@@ -83,30 +83,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-"""""
-output
-2024-04-17 22:54:29,406 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2012.csv
-2024-04-17 22:54:30,153 - INFO - File saved: ../Processed_files/vehicules_2012.csv
-2024-04-17 22:54:30,153 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2013.csv
-2024-04-17 22:54:30,823 - INFO - File saved: ../Processed_files/vehicules_2013.csv
-2024-04-17 22:54:30,831 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2014.csv
-2024-04-17 22:54:31,544 - INFO - File saved: ../Processed_files/vehicules_2014.csv
-2024-04-17 22:54:31,544 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2015.csv
-2024-04-17 22:54:32,200 - INFO - File saved: ../Processed_files/vehicules_2015.csv
-2024-04-17 22:54:32,200 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2016.csv
-2024-04-17 22:54:32,858 - INFO - File saved: ../Processed_files/vehicules_2016.csv
-2024-04-17 22:54:32,866 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2017.csv
-2024-04-17 22:54:33,652 - INFO - File saved: ../Processed_files/vehicules_2017.csv
-2024-04-17 22:54:33,652 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2018.csv
-2024-04-17 22:54:34,313 - INFO - File saved: ../Processed_files/vehicules_2018.csv
-2024-04-17 22:54:34,321 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2019.csv
-2024-04-17 22:54:35,166 - INFO - File saved: ../Processed_files/vehicules_2019.csv
-2024-04-17 22:54:35,174 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2020.csv
-2024-04-17 22:54:35,942 - INFO - File saved: ../Processed_files/vehicules_2020.csv
-2024-04-17 22:54:35,950 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2021.csv
-2024-04-17 22:54:36,818 - INFO - File saved: ../Processed_files/vehicules_2021.csv
-2024-04-17 22:54:36,826 - INFO - Start processing file: ../Data/donnees_vehicules/vehicules_2022.csv
-2024-04-17 22:54:37,679 - INFO - File saved: ../Processed_files/vehicules_2022.csv
-"""""
