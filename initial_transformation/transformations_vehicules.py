@@ -1,3 +1,5 @@
+# ce fichier contient les transformations liées aux données lieux
+
 import pandas as pd
 import os
 import logging
@@ -5,7 +7,7 @@ import logging
 # Configure logging to help in debugging and process monitoring
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def process_files(year_range, columns_to_drop, final_columns, sep=','):
+def process_files(csv_path,year_range, columns_to_drop, final_columns, output_path, sep=','):
     """
     Process CSV files for a given range of years.
     
@@ -16,19 +18,20 @@ def process_files(year_range, columns_to_drop, final_columns, sep=','):
         sep (str): Separator used in the CSV file, defaults to ','.
     """
     for year in year_range:
-        csv_path = f'../Data/donnees_vehicules/vehicules_{year}.csv'
-        output_path = f'../Processed_files/vehicules_{year}.csv'
-        if os.path.exists(csv_path):
-            logging.info(f'Start processing file: {csv_path}')
+        file_path = f'{csv_path}_{year}.csv' 
+        output = f'{output_path}_{year}.csv'
+
+        if os.path.exists(file_path):
+            logging.info(f'Start processing file: {file_path}')
             try:
                 # Read the CSV file with specified separator
-                vehicules = pd.read_csv(csv_path, sep=sep)
+                df = pd.read_csv(file_path, sep=sep)
                 # Process the DataFrame
-                process_data(vehicules, columns_to_drop, final_columns, output_path)
+                process_data(df, columns_to_drop, final_columns, output)
             except Exception as e:
-                logging.error(f'Error reading or processing {csv_path}: {e}')
+                logging.error(f'Error reading or processing {file_path}: {e}')
         else:
-            logging.warning(f'File does not exist: {csv_path}')
+            logging.warning(f'File does not exist: {file_path}')
 
 def process_data(df, columns_to_drop, final_columns, output_path):
     """
@@ -72,14 +75,16 @@ def main():
     Main function to define file processing parameters and initiate processing.
     """
     # Columns to drop in earlier and later year ranges
+    vehicules_base_path = '../Data/donnees_vehicules/vehicules'
+    vehicules_output_path = '../Processed_files/vehicules'
     common_cols = ['senc', 'occutc']
     extended_cols = common_cols + ['id_vehicule', 'motor']
     final_cols = ['Num_Acc', 'num_veh', 'category_veh', 'obstacle', 'obstacle_m', 'choc', 'manoeuvre']
 
-    # Process files from 2012 to 2018 with a semicolon separator
-    process_files(range(2012, 2019), common_cols, final_cols)
-    # Process files from 2019 to 2022 with a comma separator (default)
-    process_files(range(2019, 2023), extended_cols, final_cols, sep=';')
+    # Process files from 2012 to 2018 
+    process_files(vehicules_base_path, range(2012, 2019), common_cols, final_cols, vehicules_output_path)
+    # Process files from 2019 to 2022 
+    process_files(vehicules_base_path, range(2019, 2023), extended_cols, final_cols, vehicules_output_path, sep=';')
 
 if __name__ == "__main__":
     main()
