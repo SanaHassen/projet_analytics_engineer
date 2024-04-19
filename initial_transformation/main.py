@@ -25,6 +25,15 @@ configs = {
         'final_columns': ['Num_Acc',	'category_route', 'regime_circulation', 'voie_reserve', 'profil_route', 'etat_surface', 'Infrastructure', 'situation','nb_voies']
     },
 
+    "immat_config" : {
+        'columns_to_drop': ['Lettre Conventionnelle Véhicule', 'CNIT'],  
+        'replace_values': {'Age véhicule': 999},
+        'data_types': {'Age véhicule':'int'},
+        'rename_columns': {'Année': 'annee', 'Lieu Admin Actuel - Territoire Nom': 'lieu_admin_actuel', 'Type Accident - Libellé':'type_accident', 'Type Accident - Libellé (old)':'type_accident','Catégorie véhicule': 'categorie_vehicule' , 'Age véhicule': 'age_vehicule'},
+        'final_columns': ['Id_accident',	'annee',	'lieu_admin_actuel',	'type_accident',	'categorie_vehicule',	'age_vehicule']
+    }
+
+
     
 
 }
@@ -127,7 +136,7 @@ def transform():
             print('----cols_types----\n', df.dtypes)
 
             df = preprocess_data(df,type)
-            
+
             df = process_data(df, config)
             print(f'------------- After processing-{year} ------------')
             print('----NaN----\n', df.isna().sum())

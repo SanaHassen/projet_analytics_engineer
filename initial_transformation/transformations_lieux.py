@@ -81,9 +81,9 @@ def main():
 
 
 
-    vehicules_base_path = '../Data/donnees_lieux/lieux'
+    lieux_base_path = '../Data/donnees_lieux/lieux'
 
-    vehicules_config = {
+    lieux_config = {
         'columns_to_drop': ['voie', 'v1', 'v2', 'pr', 'pr1', 'plan', 'lartpc', 'larrout', 'vma', 'env1'],  
         'replace_values': {'circ': -1, 'vosp': -1, 'prof': -1,  'surf': -1, 'situ': -1, 'infra': -1, 'nbv':0 },
         'data_types': {'circ': 'int', 'vosp':'int', 'prof': 'int' , 'surf': 'int', 'situ': 'int', 'infra': 'int','nbv':'int'},
@@ -92,8 +92,8 @@ def main():
 
     }
 
-    process_files(vehicules_base_path, range(2012,2019), vehicules_config,'../Processed_files/lieux')
-    process_files(vehicules_base_path, range(2019,2023), vehicules_config, '../Processed_files/lieux', sep = ";")
+    process_files(lieux_base_path, range(2012,2019), lieux_config,'../Processed_files/lieux')
+    process_files(lieux_base_path, range(2019,2023), lieux_config, '../Processed_files/lieux', sep = ";")
 
 
 
