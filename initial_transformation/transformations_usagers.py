@@ -78,18 +78,13 @@ def transform_secu_column(row):
 def custom_transform_usagers(df,year):
     if year < 2019:
         df[['secu1', 'secu2', 'secu3']] = df.apply(transform_secu_column, axis=1, result_type='expand')
+        df.drop(columns=['secu'], inplace=True)
+    final_columns = ['Num_Acc', 'num_veh', 'category_usager',	'gravite', 'sexe', 'motif_deplacement',	'secu1', 'secu2','secu3', 'localisation_pieton', 'action_pieton','pieton_seul_ou_non', 'annee_naissance']
+    df = df[final_columns]
+    df['action_pieton'] = df['action_pieton'].replace('A', -1)
+    df['action_pieton'] = df['action_pieton'].replace('B', -1)
+    df['action_pieton'] = df['action_pieton'].astype(int)
     return df
-
-
-
-
-
-
-    # df['actp'] = df['actp'].repalace('A', -1)
-    # df['actp'] = df['actp'].repalce('B', -1)
-    # df['actp'] = df['actp'].astype(int)
-    # final_columns = ['Num_Acc', 'num_veh', 'category_usager',	'gravite', 'sexe', 'motif_deplacement',	'secu', 'secu1', 'secu2','secu3', 'localisation_pieton', 'pieton_seul_ou_non', 'annee_naissance']
-    # df = df[final_columns]
 
 
     
@@ -111,8 +106,8 @@ def main():
     }
 
 
-    process_files(usagers_base_path, range(2012,2019), usagers_config,'../Processed_files/usagers')
-    process_files(usagers_base_path, range(2019,2023), usagers_config, '../Processed_files/usagers', sep = ";")
+    process_files(usagers_base_path, range(2012,2014), usagers_config,'../Processed_files/usagers')
+    # process_files(usagers_base_path, range(2019,2023), usagers_config, '../Processed_files/usagers', sep = ";")
 
 
 

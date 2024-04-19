@@ -107,8 +107,25 @@ def custom_transform_carac(df, year=None):
     print('custom transformation on carac done!')
     return df
 
+def transform_secu_column(row):
+    # Extract the first and second digit from the 'secu' column
+    secu_value = str(row['secu'])
+    if len(secu_value) == 2 and secu_value != '-1':
+        first_digit, second_digit = secu_value
+        # Check if the equipment was used based on the second digit
+        if second_digit == '1':
+            return int(first_digit), -1, -1
+    return -1, -1, -1
+
 def custom_transform_usagers(df, year=None):
-    
+    if year < 2019:
+        df[['secu1', 'secu2', 'secu3']] = df.apply(transform_secu_column, axis=1, result_type='expand')
+        df.drop(columns=['secu'], inplace=True)
+    final_columns = ['Num_Acc', 'num_veh', 'category_usager',	'gravite', 'sexe', 'motif_deplacement',	'secu1', 'secu2','secu3', 'localisation_pieton', 'action_pieton','pieton_seul_ou_non', 'annee_naissance']
+    df = df[final_columns]
+    df['action_pieton'] = df['action_pieton'].replace('A', -1)
+    df['action_pieton'] = df['action_pieton'].replace('B', -1)
+    df['action_pieton'] = df['action_pieton'].astype(int)
     return df
 
 def custom_transform_immatriculation(df, year=None):
@@ -119,8 +136,7 @@ def custom_transform(df, type, year):
     custom_transformations = {
         "vehicules": custom_transform_vehicules,
         "lieux": custom_transform_lieux,
-        "usagers": custom_transform_usagers,
-
+        "usagers": custom_transform_usagers
     }
 
     fn = custom_transformations.get(type)
