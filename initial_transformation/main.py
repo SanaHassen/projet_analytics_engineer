@@ -31,7 +31,18 @@ configs = {
         'data_types': {'Age véhicule':'int'},
         'rename_columns': {'Année': 'annee', 'Lieu Admin Actuel - Territoire Nom': 'lieu_admin_actuel', 'Type Accident - Libellé':'type_accident', 'Type Accident - Libellé (old)':'type_accident','Catégorie véhicule': 'categorie_vehicule' , 'Age véhicule': 'age_vehicule'},
         'final_columns': ['Id_accident',	'annee',	'lieu_admin_actuel',	'type_accident',	'categorie_vehicule',	'age_vehicule']
-    }
+    },
+
+    "usagers_config" : {
+        'columns_to_drop': ['place', 'id_usager', 'id_vehicule'],  
+        'replace_values': {'trajet': -1, 'secu1': -1, 'secu2': -1, 'secu3': -1, 'secu': -1, 'locp':-1, 'actp':-1, 'etatp':-1, 'an_nais':-1},
+        'data_types': {'trajet':'int', 'secu':'int', 'locp':'int', 'etatp':'int', 'an_nais':'int'},
+        'rename_columns': {'catu':'category_usager', 'grav': 'gravite', 'trajet':'motif_deplacement', 'locp':'localisation_pieton', 'etatp':'pieton_seul_ou_non', 'actp':'action_pieton','an_nais':'annee_naissance'},
+        # 'final_columns': ['Num_Acc', 'num_veh', 'category_usager',	'gravite', 'sexe', 'motif_deplacement',	'secu', 'secu1', 'secu2','secu3', 'localisation_pieton', 'pieton_seul_ou_non', 'annee_naissance']
+
+    },
+
+
 
 
     
@@ -40,8 +51,7 @@ configs = {
 
 
 def get_separator(year, type):
-    if type == "im":
-        return ";"
+
     if year < 2019:
         return ','
     return ';'
@@ -77,6 +87,7 @@ def process_data(df, config):
     return df
 
 def load_file(file_path, type, year):
+    print(file_path)
     df = pd.read_csv(os.path.abspath(file_path), sep=get_separator(year, type))
     return df
 
@@ -84,70 +95,67 @@ def save_file(df, output_path):
     df.to_csv(output_path, index=False)
     logging.info(f'File saved: {output_path}')
 
-def custom_transform_vehicules(df):
+def custom_transform_vehicules(df, year=None):
     print('custom transformation on vehicules done!')
     return df
 
-def custom_transform_lieux(df):
+def custom_transform_lieux(df,year=None):
     print('custom transformation on lieux done!')
     return df
 
-def custom_transform_carac(df):
+def custom_transform_carac(df, year=None):
     print('custom transformation on carac done!')
     return df
 
-def custom_transform_usagers(df):
-    print('custom transformation on usagers done!')
+def custom_transform_usagers(df, year=None):
+    
     return df
 
-def custom_transform_immatriculation(df):
+def custom_transform_immatriculation(df, year=None):
     print('custom transformation on immatriculations done!')
     return df
 
-def custom_transform(df, type): 
+def custom_transform(df, type, year): 
     custom_transformations = {
         "vehicules": custom_transform_vehicules,
         "lieux": custom_transform_lieux,
+        "usagers": custom_transform_usagers,
 
     }
 
     fn = custom_transformations.get(type)
     if fn:
-        return fn(df)
+        return fn(df, year)
+    return df
 
 def preprocess_data(df, type):
     if type == "lieux":
         df['nbv'] = pd.to_numeric(df['nbv'], errors='coerce')
-
+    return df
 def transform():
     pattern = os.path.join(data_path, '**', '*.csv')
     files = glob.glob(pattern, recursive=True)[-1:]
 
     for file in files:
         logging.info(f'Start processing file: {file}')
-        try:
-            name = file.replace(".csv", "").split("\\")[-1]
-            year = int(name.split("_")[1])
-            type = name.split("_")[0]
-            config = configs.get(type)
-            df = load_file(file, year,type)
-            print(f'------------- Before processing-{year} ------------')
-            print('----NaN----\n', df.isna().sum())
-            print('----cols_types----\n', df.dtypes)
+        # try:
+        name = file.replace(".csv", "").split("\\")[-1]
+        year = int(name.split("_")[1])
+        type = name.split("_")[0]
+        config = configs.get(type)
+        df = load_file(file,type, year)
 
-            df = preprocess_data(df,type)
 
-            df = process_data(df, config)
-            print(f'------------- After processing-{year} ------------')
-            print('----NaN----\n', df.isna().sum())
-            print('----cols_types----\n', df.dtypes)
+        df = preprocess_data(df,type)
 
-            df = custom_transform(df, type)
+        df = process_data(df, config)
+     
+        df = custom_transform(df, type, year)
 
-            output_path = f'../Processed_files/{name}.csv'
-            save_file(df, output_path)
-            break
-        except Exception as e:
-                logging.error(f'Error reading or processing {file}: {e}')
+        output_path = f'../Processed_files/{name}.csv'
+        save_file(df, output_path)
+        break
+        # except Exception as e:
+        #         logging.error(f'Error reading or processing {file}: {e}')
        
 transform()
