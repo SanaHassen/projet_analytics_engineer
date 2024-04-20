@@ -103,16 +103,6 @@ def custom_transform_carac(df, year=None):
     print('custom transformation on carac done!')
     return df
 
-def transform_secu_column(row):
-    # Extract the first and second digit from the 'secu' column
-    secu_value = str(row['secu'])
-    if len(secu_value) == 2 and secu_value != '-1':
-        first_digit, second_digit = secu_value
-        # Check if the equipment was used based on the second digit
-        if second_digit == '1':
-            return int(first_digit), -1, -1
-    return -1, -1, -1
-
 def custom_transform_usagers(df, year=None):
     """
     Transforms the 'secu' column in usagers dataset for years before 2019 to match the format of newer datasets (2019+).
@@ -121,7 +111,7 @@ def custom_transform_usagers(df, year=None):
     for safety equipment. This function maps the old format to the new format, setting 'secu1' based on the first digit
     if the second digit is '1', and setting 'secu2' and 'secu3' to -1, indicating undetermined status.
 
-    Parameters:
+    Parametesrs:
         df (pd.DataFrame): The DataFrame containing usagers data.
         year (int, optional): The year of the dataset, used to determine whether the transformation should be applied.
                               The transformation is applied if the year is before 2019.
