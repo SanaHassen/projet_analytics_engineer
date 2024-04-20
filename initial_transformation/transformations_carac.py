@@ -50,25 +50,24 @@ def load_file(file_path, sep,type, year):
 
 def custom_transform_carac(df,year):
     if year < 2019:
-        df['hrmn'] = df['hrmn'].astype(str).str.zfill(4)
-        df['hrmn'] = df['hrmn'].str[0:2]
+        df['hr'] = df['hr'].astype(str).str.zfill(4)
+        df['hr'] = df['hr'].str[0:2]
         df.loc[df['gps'] == 'M', 'lattitude'] = df['lattitude'] / 100000
         df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
         df.drop('gps', axis=1, inplace=True)
+        df['departement'] = df['departement'].apply(lambda x: str(x)[:-1] if x >= 100 and x % 10 == 0 else x)
 
     else:
-        df['hrmn'] = df['hrmn'].str.split(':').str[0]
+        df['hr'] = df['hr'].str.split(':').str[0]
         df['lattitude'] = df['lattitude'].astype(str).str.replace(',', '.')
         df['longitude'] = df['longitude'].astype(str).str.replace(',', '.')
 
-    df['hrmn'] = df['hrmn'].astype(int)
+    df['hr'] = df['hr'].astype(int)
     df['longitude'] = df['longitude'].astype(float)
     df['lattitude'] = df['lattitude'].astype(float)
 
-    # final_columns = ['secu','secu1', 'secu2','secu3']
-    # df = df[final_columns]
-
-
+    final_columns = ['Num_Acc', 'jour', 'mois', 'an', 'hr', 'condition_eclairage', 'departement', 'commune', 'condition_agglomeration', 'intersection', 'condition_atmosphere', 'type_collision', 'adresse', 'lattitude', 'longitude']
+    df = df[final_columns]
     return df
     
 def main():
@@ -76,7 +75,7 @@ def main():
     carac_config = {
         'replace_values': {'adr': '', 'lat':0, 'long':0, 'atm':-1, 'col':-1},
         'data_types': {'an':'int', 'mois':'int', 'jour':'int', 'lum':'int',	'agg':'int', 'inter':'int', 'atm':'int', 'col':'int'},
-        'rename_columns': {'lum':'condition_eclairage', 'agg':'condition_agglomeration', 'inter':'intersection', 'atm':'condition_atmosphere', 'col':'type_collision', 'com':'commune',	'adr':'adresse', 'lat':'lattitude',	'long':'longitude', 'dep':'departement'},
+        'rename_columns': {'lum':'condition_eclairage', 'agg':'condition_agglomeration', 'hrmn':'hr', 'int':'intersection', 'atm':'condition_atmosphere', 'col':'type_collision', 'com':'commune', 'adr':'adresse', 'lat':'lattitude', 'long':'longitude', 'dep':'departement'},
     }
 
     # process_files(carac_base_path, range(2012,2019), carac_config,'../Processed_files/caracteristiques')

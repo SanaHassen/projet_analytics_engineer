@@ -38,9 +38,14 @@ configs = {
         'replace_values': {'trajet': -1, 'secu1': -1, 'secu2': -1, 'secu3': -1, 'secu': -1, 'locp':-1, 'actp':-1, 'etatp':-1, 'an_nais':-1},
         'data_types': {'trajet':'int', 'secu':'int', 'locp':'int', 'etatp':'int', 'an_nais':'int'},
         'rename_columns': {'catu':'category_usager', 'grav': 'gravite', 'trajet':'motif_deplacement', 'locp':'localisation_pieton', 'etatp':'pieton_seul_ou_non', 'actp':'action_pieton','an_nais':'annee_naissance'},
-        # 'final_columns': ['Num_Acc', 'num_veh', 'category_usager',	'gravite', 'sexe', 'motif_deplacement',	'secu', 'secu1', 'secu2','secu3', 'localisation_pieton', 'pieton_seul_ou_non', 'annee_naissance']
 
     },
+
+     "carac_config" : {
+        'replace_values': {'adr': '', 'lat':0, 'long':0, 'atm':-1, 'col':-1},
+        'data_types': {'an':'int', 'mois':'int', 'jour':'int', 'lum':'int',	'agg':'int', 'inter':'int', 'atm':'int', 'col':'int'},
+        'rename_columns': {'lum':'condition_eclairage', 'agg':'condition_agglomeration', 'inter':'intersection', 'atm':'condition_atmosphere', 'col':'type_collision', 'com':'commune',	'adr':'adresse', 'lat':'lattitude',	'long':'longitude', 'dep':'departement'},
+    }
 
 }
 
@@ -51,6 +56,11 @@ def get_separator(year, type):
     if year < 2019:
         return ','
     return ';'
+
+def preprocess_data(df, type):
+    if type == "lieux":
+        df['nbv'] = pd.to_numeric(df['nbv'], errors='coerce')
+    return df
 
 def process_data(df, config):
 
@@ -95,15 +105,57 @@ def save_file(df, output_path):
     logging.info(f'File saved: {output_path}')
 
 def custom_transform_vehicules(df, year=None):
-    print('custom transformation on vehicules done!')
+    print('No specific transformations on type vehicules !')
     return df
 
 def custom_transform_lieux(df,year=None):
-    print('custom transformation on lieux done!')
+    print('No specific transformations on type lieux !')
     return df
 
 def custom_transform_carac(df, year=None):
-    print('custom transformation on carac done!')
+    """
+    Transforms the 'caracteristiques' DataFrame with custom adjustments for data consistency.
+
+    For years before 2019:
+    - Pads 'hr' column values with zeros to ensure a 4-digit format and extracts the first two characters representing the hour.
+    - Divides 'lattitude' and 'longitude' values by 100000 to normalize coordinates when 'gps' column is marked 'M'.
+    - Drops the 'gps' column as it's no longer needed after transformation.
+    - Adjusts 'departement' codes by removing the trailing zero for codes ending in zero and greater than or equal to 100.
+
+    For years 2019 and later:
+    - Splits 'hr' column values at the colon and takes the first part representing the hour.
+    - Replaces commas with dots in 'lattitude' and 'longitude' values to correct the decimal format.
+
+    Applies to all years:
+    - Converts 'hr' to an integer, 'lattitude', and 'longitude' to float for numerical consistency.
+    - Selects and orders the final set of columns to match the desired DataFrame structure.
+
+    Parameters:
+    - df (pd.DataFrame): The input DataFrame containing 'caracteristiques' data.
+    - year (int, optional): The year of the data which dictates the specific transformations to be applied.
+
+    Returns:
+    - pd.DataFrame: The transformed DataFrame with consistent and standardized data columns.
+    """
+    if year < 2019:
+        df['hr'] = df['hr'].astype(str).str.zfill(4)
+        df['hr'] = df['hr'].str[0:2]
+        df.loc[df['gps'] == 'M', 'lattitude'] = df['lattitude'] / 100000
+        df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
+        df.drop('gps', axis=1, inplace=True)
+        df['departement'] = df['departement'].apply(lambda x: str(x)[:-1] if x >= 100 and x % 10 == 0 else x)
+
+    else:
+        df['hr'] = df['hr'].str.split(':').str[0]
+        df['lattitude'] = df['lattitude'].astype(str).str.replace(',', '.')
+        df['longitude'] = df['longitude'].astype(str).str.replace(',', '.')
+
+    df['hr'] = df['hr'].astype(int)
+    df['longitude'] = df['longitude'].astype(float)
+    df['lattitude'] = df['lattitude'].astype(float)
+
+    final_columns = ['Num_Acc', 'jour', 'mois', 'an', 'hr', 'condition_eclairage', 'departement', 'commune', 'condition_agglomeration', 'intersection', 'condition_atmosphere', 'type_collision', 'adresse', 'lattitude', 'longitude']
+    df = df[final_columns]
     return df
 
 def custom_transform_usagers(df, year=None):
@@ -146,14 +198,16 @@ def custom_transform_usagers(df, year=None):
     return df
 
 def custom_transform_immatriculation(df, year=None):
-    print('custom transformation on immatriculations done!')
+    print('No specific transformations on type immatriculations !')
     return df
 
 def custom_transform(df, type, year): 
     custom_transformations = {
         "vehicules": custom_transform_vehicules,
         "lieux": custom_transform_lieux,
-        "usagers": custom_transform_usagers
+        "usagers": custom_transform_usagers,
+        "caracteristiques": custom_transform_carac,
+        "immatriculation": custom_transform_immatriculation
     }
 
     fn = custom_transformations.get(type)
@@ -161,10 +215,6 @@ def custom_transform(df, type, year):
         return fn(df, year)
     return df
 
-def preprocess_data(df, type):
-    if type == "lieux":
-        df['nbv'] = pd.to_numeric(df['nbv'], errors='coerce')
-    return df
 
 def transform():
     pattern = os.path.join(data_path, '**', '*.csv')
