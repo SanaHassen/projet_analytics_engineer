@@ -42,16 +42,12 @@ configs = {
 
     },
 
-
-
-
-    
-
 }
 
 
 def get_separator(year, type):
-
+    if type == 'immatriculation':
+        return ';'
     if year < 2019:
         return ','
     return ';'
@@ -118,11 +114,39 @@ def transform_secu_column(row):
     return -1, -1, -1
 
 def custom_transform_usagers(df, year=None):
+    """
+    Transforms the 'secu' column in usagers dataset for years before 2019 to match the format of newer datasets (2019+).
+    The original 'secu' column includes two-digit codes where the first digit indicates the type of safety equipment used,
+    and the second digit indicates whether it was used. In datasets from 2019 onward, there are three separate columns
+    for safety equipment. This function maps the old format to the new format, setting 'secu1' based on the first digit
+    if the second digit is '1', and setting 'secu2' and 'secu3' to -1, indicating undetermined status.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame containing usagers data.
+        year (int, optional): The year of the dataset, used to determine whether the transformation should be applied.
+                              The transformation is applied if the year is before 2019.
+
+    Returns:
+        pd.DataFrame: The DataFrame with the transformed data.
+    """
     if year < 2019:
-        df[['secu1', 'secu2', 'secu3']] = df.apply(transform_secu_column, axis=1, result_type='expand')
-        df.drop(columns=['secu'], inplace=True)
-    final_columns = ['Num_Acc', 'num_veh', 'category_usager',	'gravite', 'sexe', 'motif_deplacement',	'secu1', 'secu2','secu3', 'localisation_pieton', 'action_pieton','pieton_seul_ou_non', 'annee_naissance']
+        df['secu'] = df['secu'].astype(str)
+        df['secu1_digit'] = df['secu'].str[0]
+        df['secu2_digit'] = df['secu'].str[1].fillna('1')
+        mapping = {
+                    '1': '1', '2': '2', '3': '3', '4': '4', '9': '9'
+        }
+        df['secu1'] = df['secu1_digit'].map(mapping).fillna('-1')
+        df.loc[df['secu2_digit'] != '1', 'secu1'] = '-1'
+        df['secu2'] = '-1'
+        df['secu3'] = '-1'
+        for col in ['secu1', 'secu2', 'secu3']:
+            df[col] = df[col].astype(int)
+        df.drop(['secu1_digit', 'secu', 'secu2_digit'], axis=1, inplace=True)
+
+    final_columns = ['Num_Acc', 'num_veh', 'category_usager', 'gravite', 'sexe', 'motif_deplacement', 'secu1', 'secu2','secu3', 'localisation_pieton', 'action_pieton','pieton_seul_ou_non', 'annee_naissance']
     df = df[final_columns]
+
     df['action_pieton'] = df['action_pieton'].replace('A', -1)
     df['action_pieton'] = df['action_pieton'].replace('B', -1)
     df['action_pieton'] = df['action_pieton'].astype(int)
@@ -148,6 +172,7 @@ def preprocess_data(df, type):
     if type == "lieux":
         df['nbv'] = pd.to_numeric(df['nbv'], errors='coerce')
     return df
+
 def transform():
     pattern = os.path.join(data_path, '**', '*.csv')
     files = glob.glob(pattern, recursive=True)[-1:]
@@ -159,8 +184,8 @@ def transform():
         year = int(name.split("_")[1])
         type = name.split("_")[0]
         config = configs.get(type)
-        df = load_file(file,type, year)
 
+        df = load_file(file,type, year)
 
         df = preprocess_data(df,type)
 
