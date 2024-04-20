@@ -84,7 +84,10 @@ def process_data(df, config):
 
 def load_file(file_path, type, year):
     print(file_path)
-    df = pd.read_csv(os.path.abspath(file_path), sep=get_separator(year, type))
+    encoding = 'utf-8'
+    if year < 2019 and type == 'caracteristiques':
+        encoding = 'latin1'
+    df = pd.read_csv(os.path.abspath(file_path), sep=get_separator(year, type), encoding=encoding)
     return df
 
 def save_file(df, output_path):
@@ -111,7 +114,7 @@ def custom_transform_usagers(df, year=None):
     for safety equipment. This function maps the old format to the new format, setting 'secu1' based on the first digit
     if the second digit is '1', and setting 'secu2' and 'secu3' to -1, indicating undetermined status.
 
-    Parametesrs:
+    Parameters:
         df (pd.DataFrame): The DataFrame containing usagers data.
         year (int, optional): The year of the dataset, used to determine whether the transformation should be applied.
                               The transformation is applied if the year is before 2019.
