@@ -25,7 +25,7 @@ configs = {
         'final_columns': ['Num_Acc',	'category_route', 'regime_circulation', 'voie_reserve', 'profil_route', 'etat_surface', 'Infrastructure', 'situation','nb_voies']
     },
 
-    "immat_config" : {
+    "immatriculation" : {
         'columns_to_drop': ['Lettre Conventionnelle Véhicule', 'CNIT'],  
         'replace_values': {'Age véhicule': 999},
         'data_types': {'Age véhicule':'int'},
@@ -33,7 +33,7 @@ configs = {
         'final_columns': ['Id_accident',	'annee',	'lieu_admin_actuel',	'type_accident',	'categorie_vehicule',	'age_vehicule']
     },
 
-    "usagers_config" : {
+    "usagers" : {
         'columns_to_drop': ['place', 'id_usager', 'id_vehicule'],  
         'replace_values': {'trajet': -1, 'secu1': -1, 'secu2': -1, 'secu3': -1, 'secu': -1, 'locp':-1, 'actp':-1, 'etatp':-1, 'an_nais':-1},
         'data_types': {'trajet':'int', 'secu':'int', 'locp':'int', 'etatp':'int', 'an_nais':'int'},
@@ -41,10 +41,10 @@ configs = {
 
     },
 
-     "carac_config" : {
+     "caracteristiques" : {
         'replace_values': {'adr': '', 'lat':0, 'long':0, 'atm':-1, 'col':-1},
         'data_types': {'an':'int', 'mois':'int', 'jour':'int', 'lum':'int',	'agg':'int', 'inter':'int', 'atm':'int', 'col':'int'},
-        'rename_columns': {'lum':'condition_eclairage', 'agg':'condition_agglomeration', 'inter':'intersection', 'atm':'condition_atmosphere', 'col':'type_collision', 'com':'commune',	'adr':'adresse', 'lat':'lattitude',	'long':'longitude', 'dep':'departement'},
+        'rename_columns': {'lum':'condition_eclairage', 'agg':'condition_agglomeration', 'int':'intersection', 'atm':'condition_atmosphere', 'col':'type_collision', 'com':'commune',	'adr':'adresse', 'hrmn':'hr', 'lat':'lattitude',	'long':'longitude', 'dep':'departement'},
     }
 
 }
@@ -218,7 +218,7 @@ def custom_transform(df, type, year):
 
 def transform():
     pattern = os.path.join(data_path, '**', '*.csv')
-    files = glob.glob(pattern, recursive=True)[-1:]
+    files = glob.glob(pattern, recursive=True)
 
     for file in files:
         logging.info(f'Start processing file: {file}')
@@ -238,7 +238,7 @@ def transform():
 
         output_path = f'../Processed_files/{name}.csv'
         save_file(df, output_path)
-        break
+        
         # except Exception as e:
         #         logging.error(f'Error reading or processing {file}: {e}')
        
