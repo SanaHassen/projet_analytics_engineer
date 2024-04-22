@@ -144,6 +144,7 @@ def custom_transform_carac(df, year=None):
         df.loc[df['gps'] == 'M', 'lattitude'] = df['lattitude'] / 100000
         df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
         df.drop('gps', axis=1, inplace=True)
+        df['an'] = 2000 + df['an']
         df['departement'] = df['departement'].apply(lambda x: str(x)[:-1] if x >= 100 and x % 10 == 0 else x)
 
     else:

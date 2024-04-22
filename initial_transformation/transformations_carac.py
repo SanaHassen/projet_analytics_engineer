@@ -55,6 +55,7 @@ def custom_transform_carac(df,year):
         df.loc[df['gps'] == 'M', 'lattitude'] = df['lattitude'] / 100000
         df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
         df.drop('gps', axis=1, inplace=True)
+        df['an'] = 2000 + df['an']
         df['departement'] = df['departement'].apply(lambda x: str(x)[:-1] if x >= 100 and x % 10 == 0 else x)
 
     else:
@@ -68,6 +69,7 @@ def custom_transform_carac(df,year):
 
     final_columns = ['Num_Acc', 'jour', 'mois', 'an', 'hr', 'condition_eclairage', 'departement', 'commune', 'condition_agglomeration', 'intersection', 'condition_atmosphere', 'type_collision', 'adresse', 'lattitude', 'longitude']
     df = df[final_columns]
+    print(df['an'].unique())
     return df
     
 def main():
@@ -78,7 +80,7 @@ def main():
         'rename_columns': {'lum':'condition_eclairage', 'agg':'condition_agglomeration', 'hrmn':'hr', 'int':'intersection', 'atm':'condition_atmosphere', 'col':'type_collision', 'com':'commune', 'adr':'adresse', 'lat':'lattitude', 'long':'longitude', 'dep':'departement'},
     }
 
-    # process_files(carac_base_path, range(2012,2019), carac_config,'../Processed_files/caracteristiques')
+    process_files(carac_base_path, range(2012,2019), carac_config,'../Processed_files/caracteristiques')
     process_files(carac_base_path, range(2019,2023), carac_config, '../Processed_files/caracteristiques', sep = ";")
 
 
