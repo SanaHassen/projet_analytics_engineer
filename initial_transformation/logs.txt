@@ -1,0 +1,411 @@
+..\Data\donnees_caracteristiques\caracteristiques_2012.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2013.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2014.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2015.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2016.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2017.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2018.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2019.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2020.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2021.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_caracteristiques\caracteristiques_2022.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_immatriculation\immatriculation_2012.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2013.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2014.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2015.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2016.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2017.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2018.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2019.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2020.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_immatriculation\immatriculation_2021.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type immatriculations !
+..\Data\donnees_lieux\lieux_2012.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2013.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2014.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2015.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2016.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2017.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2018.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2019.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2020.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2021.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_lieux\lieux_2022.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type lieux !
+..\Data\donnees_usagers\usagers_2012.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2013.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2014.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2015.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2016.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2017.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2018.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2019.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2020.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2021.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_usagers\usagers_2022.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+..\Data\donnees_vehicules\vehicules_2012.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2013.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2014.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2015.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2016.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2017.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2018.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2019.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2020.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2021.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+..\Data\donnees_vehicules\vehicules_2022.csv
+Drop unused columns done!
+Drop duplicated columns done!
+Fill na done!
+Change Data Types done!
+Rename columns done!
+Reorder columns done!
+No specific transformations on type vehicules !
+Le temps d'exécution du programme est de 65.09858107566833 secondes.

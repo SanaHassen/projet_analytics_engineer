@@ -3,6 +3,7 @@ import glob
 import os
 import pandas as pd
 import logging
+import time
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -241,5 +242,8 @@ def transform():
         
         # except Exception as e:
         #         logging.error(f'Error reading or processing {file}: {e}')
-       
+
+start_time = time.time()    
 transform()
+end_time = time.time()  # Enregistre le temps de fin
+print(f"Le temps d'exécution du programme est de {end_time - start_time} secondes.")
