@@ -23,7 +23,7 @@ configs = {
         'replace_values': {'circ': -1, 'vosp': -1, 'prof': -1,  'surf': -1, 'situ': -1, 'infra': -1, 'nbv':0 },
         'data_types': {'circ': 'int', 'vosp':'int', 'prof': 'int' , 'surf': 'int', 'situ': 'int', 'infra': 'int','nbv':'int'},
         'rename_columns': {'catr': 'category_route', 'circ': 'regime_circulation', 'vosp':'voie_reserve', 'prof': 'profil_route' , 'surf': 'etat_surface', 'situ': 'situation', 'infra': 'Infrastructure', 'nbv':'nb_voies'},
-        'final_columns': ['Num_Acc',	'category_route', 'regime_circulation', 'voie_reserve', 'profil_route', 'etat_surface', 'Infrastructure', 'situation','nb_voies']
+        'final_columns': ['Num_Acc', 'category_route', 'regime_circulation', 'voie_reserve', 'profil_route', 'etat_surface', 'Infrastructure', 'situation','nb_voies']
     },
 
     "immatriculation" : {
@@ -31,7 +31,7 @@ configs = {
         'replace_values': {'Age véhicule': 999},
         'data_types': {'Age véhicule':'int'},
         'rename_columns': {'Année': 'annee', 'Lieu Admin Actuel - Territoire Nom': 'lieu_admin_actuel', 'Type Accident - Libellé':'type_accident', 'Type Accident - Libellé (old)':'type_accident','Catégorie véhicule': 'categorie_vehicule' , 'Age véhicule': 'age_vehicule'},
-        'final_columns': ['Id_accident',	'annee',	'lieu_admin_actuel',	'type_accident',	'categorie_vehicule',	'age_vehicule']
+        'final_columns': ['Id_accident', 'annee', 'lieu_admin_actuel',	'type_accident', 'categorie_vehicule', 'age_vehicule']
     },
 
     "usagers" : {
@@ -194,8 +194,8 @@ def custom_transform_usagers(df, year=None):
     final_columns = ['Num_Acc', 'num_veh', 'category_usager', 'gravite', 'sexe', 'motif_deplacement', 'secu1', 'secu2','secu3', 'localisation_pieton', 'action_pieton','pieton_seul_ou_non', 'annee_naissance']
     df = df[final_columns]
 
-    df['action_pieton'] = df['action_pieton'].replace('A', -1)
-    df['action_pieton'] = df['action_pieton'].replace('B', -1)
+    df['action_pieton'] = df['action_pieton'].replace('A', 10) #vu que tous les autres sont des int, j'ai ajoute celle la aussi
+    df['action_pieton'] = df['action_pieton'].replace('B', -1) #here B stands for inconnue so je l'ai mis avec la categorie -1
     df['action_pieton'] = df['action_pieton'].astype(int)
     return df
 
@@ -238,7 +238,7 @@ def transform():
      
         df = custom_transform(df, type, year)
 
-        output_path = f'../Processed_files/{name}.csv'
+        output_path = f'../test/{name}.csv'
         save_file(df, output_path)
         
         # except Exception as e:
