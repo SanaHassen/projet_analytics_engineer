@@ -145,9 +145,13 @@ def custom_transform_carac(df, year=None):
         df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
         df.drop('gps', axis=1, inplace=True)
         df['an'] = 2000 + df['an']
-        df['departement'] = df['departement'].apply(lambda x: str(x)[:-1] if x >= 100 and x % 10 == 0 else x)
+        df['departement'] = df['departement'].apply(lambda x: x // 10 if x % 10 == 0 else x)
+        df['departement'] = df['departement'].apply(lambda x: '{:02d}'.format(x) if x in [1, 2, 3, 4, 5, 6, 7, 8, 9] else x)
+        df['departement'] = df['departement'].astype(str)
 
     else:
+        if year == 2019:
+            df['departement'] = df['departement'].apply(lambda x: '0' + x if len(x) == 1 else x)
         df['hr'] = df['hr'].str.split(':').str[0]
         df['lattitude'] = df['lattitude'].astype(str).str.replace(',', '.')
         df['longitude'] = df['longitude'].astype(str).str.replace(',', '.')

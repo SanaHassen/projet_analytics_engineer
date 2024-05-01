@@ -6,7 +6,7 @@ import logging
 import numpy as np
 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def process_files(csv_path, year_range, config, output_path, sep=','):
     for year in year_range:
@@ -20,7 +20,7 @@ def process_files(csv_path, year_range, config, output_path, sep=','):
 
 def save_processed_file(df, output_path):
     df.to_csv(output_path, index=False)
-    logging.info(f'File saved: {output_path}')
+    # logging.info(f'File saved: {output_path}')
 
 def process_data(df, config):
     columns_to_drop = config.get('columns_to_drop', [])
@@ -41,7 +41,7 @@ def process_data(df, config):
     return df
 
 def load_file(file_path, sep,type, year):
-    print(file_path)
+    # print(file_path)
     encoding = 'utf-8'
     if year < 2019 and type == 'caracteristiques':
         encoding = 'latin1'
@@ -50,15 +50,19 @@ def load_file(file_path, sep,type, year):
 
 def custom_transform_carac(df,year):
     if year < 2019:
-        df['hr'] = df['hr'].astype(str).str.zfill(4)
-        df['hr'] = df['hr'].str[0:2]
-        df.loc[df['gps'] == 'M', 'lattitude'] = df['lattitude'] / 100000
-        df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
-        df.drop('gps', axis=1, inplace=True)
-        df['an'] = 2000 + df['an']
-        df['departement'] = df['departement'].apply(lambda x: str(x)[:-1] if x >= 100 and x % 10 == 0 else x)
+            df['hr'] = df['hr'].astype(str).str.zfill(4)
+            df['hr'] = df['hr'].str[0:2]
+            df.loc[df['gps'] == 'M', 'lattitude'] = df['lattitude'] / 100000
+            df.loc[df['gps'] == 'M', 'longitude'] = df['longitude'] / 100000
+            df.drop('gps', axis=1, inplace=True)
+            df['an'] = 2000 + df['an']
+            df['departement'] = df['departement'].apply(lambda x: x // 10 if x % 10 == 0 else x)
+            df['departement'] = df['departement'].apply(lambda x: '{:02d}'.format(x) if x in [1, 2, 3, 4, 5, 6, 7, 8, 9] else x)
+            df['departement'] = df['departement'].astype(str)
 
     else:
+        if year == 2019:
+            df['departement'] = df['departement'].apply(lambda x: '0' + x if len(x) == 1 else x)
         df['hr'] = df['hr'].str.split(':').str[0]
         df['lattitude'] = df['lattitude'].astype(str).str.replace(',', '.')
         df['longitude'] = df['longitude'].astype(str).str.replace(',', '.')
@@ -66,10 +70,16 @@ def custom_transform_carac(df,year):
     df['hr'] = df['hr'].astype(int)
     df['longitude'] = df['longitude'].astype(float)
     df['lattitude'] = df['lattitude'].astype(float)
+    
+    print('------------------------------------------------------')
+    print(year,df['departement'].unique())
+
+
+    
 
     final_columns = ['Num_Acc', 'jour', 'mois', 'an', 'hr', 'condition_eclairage', 'departement', 'commune', 'condition_agglomeration', 'intersection', 'condition_atmosphere', 'type_collision', 'adresse', 'lattitude', 'longitude']
     df = df[final_columns]
-    print(df['an'].unique())
+    # print(df['an'].unique())
     return df
     
 def main():
