@@ -16,7 +16,7 @@ CREATE FILE FORMAT CSV_FORMAT
     TIMESTAMP_FORMAT=AUTO; 
 
     
-COPY INTO FACT_VEHICULES(Num_acc, num_veh, category_veh, obstacle, obstacle_m, choc, manoeuvre)
+COPY INTO FACT_VEHICULES(Num_acc, num_veh, category_veh_id, obstacle_id, obstacle_m_id, choc_id, manoeuvre_id)
 FROM @LOAD_STAGE/
 PATTERN='.*vehicules.*[.]csv'
 FILE_FORMAT = CSV_FORMAT
@@ -30,7 +30,7 @@ file_format=CSV_FORMAT
 ON_ERROR=ABORT_STATEMENT;
 
 
-COPY INTO FACT_USAGERS (Num_Acc,num_veh, category_usager, gravite, sexe, motif_deplacement, secu1, secu2, secu3, localisation_pieton ,action_pieton, pieton_seul_ou_non, annee_naissance)
+COPY INTO FACT_USAGERS (Num_Acc,num_veh, category_usager_id, gravite_id, sexe_id, motif_deplacement_id, secu1_id, secu2_id, secu3_id, localisation_pieton_id ,action_pieton_id, pieton_seul_ou_non_id, annee_naissance)
 FROM @load_stage/
 PATTERN='.*usagers.*[.]csv'
 FILE_FORMAT=CSV_FORMAT
@@ -44,7 +44,7 @@ FILE_FORMAT=CSV_FORMAT
 ON_ERROR=ABORT_STATEMENT;
 
 
-copy into IMMATRICULATION
+copy into FACT_IMMATRICULATION
 from @load_stage/
 pattern='.*immatriculation.*[.]csv'
 file_format=CSV_FORMAT
@@ -317,7 +317,7 @@ VALUES
 
 
 
-INSERT INTO dim_u_secu1
+INSERT INTO dim_u_secu
 VALUES
 (-1, 'Non renseigné'),
 (0, 'Aucun équipement'),
@@ -330,39 +330,6 @@ VALUES
 (7, 'Gants + Airbag (2RM/3RM)'),
 (8, 'Non déterminable'),
 (9, 'Autre');
-
-
-
-INSERT INTO dim_u_secu2
-VALUES
-(-1, 'Non renseigné'),
-(0, 'Aucun équipement'),
-(1, 'Ceinture'),
-(2, 'Casque'),
-(3, 'Dispositifs enfants'),
-(4, 'Gilet réfléchissant'),
-(5, 'Airbag (2RM/3RM)'),
-(6, 'Gants (2RM/3RM)'),
-(7, 'Gants + Airbag (2RM/3RM)'),
-(8, 'Non déterminable'),
-(9, 'Autre');
-
-
-
-INSERT INTO dim_u_secu3
-VALUES
-(-1, 'Non renseigné'),
-(0, 'Aucun équipement'),
-(1, 'Ceinture'),
-(2, 'Casque'),
-(3, 'Dispositifs enfants'),
-(4, 'Gilet réfléchissant'),
-(5, 'Airbag (2RM/3RM)'),
-(6, 'Gants (2RM/3RM)'),
-(7, 'Gants + Airbag (2RM/3RM)'),
-(8, 'Non déterminable'),
-(9, 'Autre');
-
 
 
 INSERT INTO dim_u_locp
